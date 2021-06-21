@@ -18,7 +18,7 @@ interface FieldWrapperProps {
 export const FieldWrapper: FC<any> = ({ children }: FieldWrapperProps) => {
   const classes = useStyles();
   return (
-    <Grid container className={classes.fieldWrapper} xs={12}>
+    <Grid container className={classes.fieldWrapper}>
       {children}
     </Grid>
   );

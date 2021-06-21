@@ -31,8 +31,10 @@ export const DateDailyField = ({
 
   return (
     <FieldWrapper>
-      <Grid xs={3}>Everyday at</Grid>
-      <Grid xs={9}>
+      <Grid item xs={3}>
+        Everyday at
+      </Grid>
+      <Grid item xs={9}>
         <TimePicker
           showTodayButton
           inputVariant="outlined"

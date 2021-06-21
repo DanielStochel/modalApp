@@ -9,8 +9,10 @@ interface ReportFieldProps {
 export const ReportField = ({ ...props }: ReportFieldProps) => {
   return (
     <FieldWrapper>
-      <Grid xs={3}>Report name</Grid>
-      <Grid xs={9}>
+      <Grid item xs={3}>
+        Report name
+      </Grid>
+      <Grid item xs={9}>
         <TextField
           label="Shareablee Report"
           fullWidth

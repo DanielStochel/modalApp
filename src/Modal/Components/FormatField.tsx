@@ -3,8 +3,9 @@ import React, { useMemo } from "react";
 import { FieldWrapper } from "./FieldWrapper";
 import { makeStyles } from "@material-ui/core/styles";
 import { formatFields, formatFieldsHelpers } from "../Model/formatFields.model";
-import { FieldsMapper } from "../../Mapper/fieldsMapper.mapper";
+import { FieldsMapper } from "../Mapper/fieldsMapper.mapper";
 import { fieldsAttributes } from "../Model/fieldsAttributes.model";
+import uniqid from "uniqid";
 
 const useStyles = makeStyles(() => ({
   formControlLabel: {
@@ -32,19 +33,22 @@ export const FormatField = ({ value, handleChange }: FormatFieldProps) => {
     () =>
       FieldsMapper.radioFieldsMapper(formatFields, (formatOption) => (
         <FormControlLabel
+          key={uniqid()}
           className={classes.formControlLabel}
           value={formatOption}
           control={<Radio size="small" className={classes.formRadio} />}
           label={<span className={classes.formRadioLabel}>{formatOption}</span>}
         />
       )),
-    []
+    [classes.formRadioLabel, classes.formControlLabel, classes.formRadio]
   );
 
   return (
     <FieldWrapper>
-      <Grid xs={3}>{formatFieldsHelpers.FORMAT_FIELD}</Grid>
-      <Grid xs={9}>
+      <Grid item xs={3}>
+        {formatFieldsHelpers.FORMAT_FIELD}
+      </Grid>
+      <Grid item xs={9}>
         <RadioGroup
           value={value}
           onChange={handleChange}

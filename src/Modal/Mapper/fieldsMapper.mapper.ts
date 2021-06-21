@@ -1,5 +1,5 @@
-import { formatFields } from "../Modal/Model/formatFields.model";
-import { scheduleOptions } from "../Modal/Model/scheduleOptions.model";
+import { formatFields } from "../Model/formatFields.model";
+import { scheduleOptions } from "../Model/scheduleOptions.model";
 
 type RadioFields = typeof formatFields |  typeof scheduleOptions
 

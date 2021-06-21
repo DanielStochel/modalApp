@@ -19,7 +19,7 @@ export const ModalButtons = ({ toggleModal }: ModalButtonsProps) => {
       <Button onClick={toggleModal} color="primary">
         Cancel
       </Button>
-      <Button onClick={toggleModal} color="primary">
+      <Button color="primary" type="submit">
         Ok
       </Button>
     </DialogActions>

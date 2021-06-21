@@ -38,8 +38,10 @@ export const SpecificDateField = ({
 
   return (
     <FieldWrapper>
-      <Grid xs={3}>Date</Grid>
-      <Grid xs={9}>
+      <Grid item xs={3}>
+        Date
+      </Grid>
+      <Grid item xs={9}>
         <div className={classes.dateWrapper}>
           <DatePicker
             inputVariant="outlined"

@@ -1,21 +1,27 @@
-import React, { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Dialog, DialogContent, DialogTitle, Grid } from "@material-ui/core";
-import { FormatField } from "./Modal/Components/FormatField";
-import { EmailField } from "./Modal/Components/EmailField";
-import { ScheduleField } from "./Modal/Components/ScheduleField";
-import { ModalButtons } from "./Modal/Components/ModalButtons";
-import { ReportField } from "./Modal/Components/ReportField";
+import { FormatField } from "../Modal/Components/FormatField";
+import { EmailField } from "../Modal/Components/EmailField";
+import { ScheduleField } from "../Modal/Components/ScheduleField";
+import { ModalButtons } from "../Modal/Components/ModalButtons";
+import { ReportField } from "../Modal/Components/ReportField";
 import { withDateFns } from "./WithDateFns";
 import {
   scheduleOptions,
   ScheduleOptionsHelpers,
-} from "./Modal/Model/scheduleOptions.model";
-import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
-import { DateValues, FormValues } from "./Modal/Model/dateValues.model";
-import { initialformValuesState } from "./Modal/Modal.state";
-import { useBoolean } from "./hooks/useBoolean";
-import { OpenModal } from "./Modal/Components/OpenModal";
+} from "../Modal/Model/scheduleOptions.model";
+import {
+  DateTypes,
+  DateValues,
+  FormValues,
+} from "../Modal/Model/dateValues.model";
+import { useBoolean } from "../hooks/useBoolean";
+import { OpenModal } from "../Modal/Components/OpenModal";
+import { useHandleChange } from "../hooks/useHandleChange";
+import { compose } from "recompose";
+import { withSnackbar } from "./withSnackbar";
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -39,43 +45,17 @@ const useStyles = makeStyles((theme) => ({
 const ModalApp = () => {
   const classes = useStyles();
   const [open, { toggle: toggleModal }] = useBoolean(false);
+  const { enqueueSnackbar } = useSnackbar();
 
-  const [formValues, setFormValues] = useState<FormValues>(
-    initialformValuesState
-  );
+  const {
+    formValues,
+    handleChange,
+    handleDatePickers,
+    handleTimePickers,
+    handleSelectDay,
+  } = useHandleChange();
 
   const DateField = ScheduleOptionsHelpers.getDateField(formValues.schedule);
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const formField = event.target.name;
-
-    setFormValues({
-      ...formValues,
-      [formField]: event.target.value,
-    });
-  };
-
-  const handleDatePickers = (date: MaterialUiPickersDate): void => {
-    setFormValues({
-      ...formValues,
-      dateFull: date,
-    });
-  };
-
-  const handleTimePickers = (date: MaterialUiPickersDate): void => {
-    setFormValues({
-      ...formValues,
-      dailyDate: date,
-    });
-  };
-
-  const onSelectDay = (
-    event: React.ChangeEvent<{ name?: string | undefined; value: unknown }>
-  ) => {
-    setFormValues({
-      ...formValues,
-      weeklyDate: event.target.value as string,
-    });
-  };
 
   const dateValues = useMemo((): DateValues => {
     switch (formValues.schedule) {
@@ -94,9 +74,45 @@ const ModalApp = () => {
           weeklyDate: formValues.weeklyDate,
         };
       default:
-        return formValues;
+        return {};
     }
   }, [formValues]);
+
+  const stateWithoutDates = useMemo(() => {
+    return Object.keys(formValues).reduce((object, key) => {
+      switch (key) {
+        case DateTypes.DAILY_DATE:
+          return object;
+        case DateTypes.DATE_FULL:
+          return object;
+        case DateTypes.WEEKLY_DATE:
+          return object;
+        default:
+          return { ...object, [key]: formValues[key as keyof FormValues] };
+      }
+    }, {});
+  }, [formValues]);
+
+  const onFormSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+
+    try {
+      await fetch("https://postman-echo.com/post", {
+        method: "POST",
+        headers: {},
+        body: JSON.stringify({
+          ...stateWithoutDates,
+          ...dateValues,
+        }),
+      });
+
+      enqueueSnackbar("This is a success message!", { variant: "success" });
+    } catch (error) {
+      enqueueSnackbar(error.message, { variant: "error" });
+    }
+
+    toggleModal();
+  };
 
   return (
     <div>
@@ -104,15 +120,13 @@ const ModalApp = () => {
       <Dialog open={open} onClose={toggleModal} fullWidth>
         <DialogTitle className={classes.dialogTitle}>Export Report</DialogTitle>
         <DialogContent>
-          <form>
-            <Grid alignItems="stretch" direction="column">
+          <form onSubmit={onFormSubmit}>
+            <Grid container alignItems="stretch" direction="column">
               <ReportField onChange={handleChange} />
-
               <FormatField
                 value={formValues.format}
                 handleChange={handleChange}
               />
-
               <EmailField onChange={handleChange} />
               <ScheduleField
                 onChange={handleChange}
@@ -121,16 +135,16 @@ const ModalApp = () => {
               <DateField
                 onChange={handleDatePickers}
                 onSelectTimepicker={handleTimePickers}
-                onSelectDay={onSelectDay}
+                onSelectDay={handleSelectDay}
                 dateValues={dateValues}
               />
             </Grid>
+            <ModalButtons toggleModal={toggleModal} />
           </form>
         </DialogContent>
-        <ModalButtons toggleModal={toggleModal} />
       </Dialog>
     </div>
   );
 };
 
-export const App = withDateFns()(ModalApp);
+export const App = compose(withDateFns(), withSnackbar())(ModalApp);

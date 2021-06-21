@@ -26,7 +26,7 @@ export type FormValues = {
     weeklyDate: string;
 };
   
-export type DateValues = SpecificDateValues | DailyDateValues | WeeklyDateValues | FormValues
+export type DateValues = SpecificDateValues | DailyDateValues | WeeklyDateValues | {}
 
 export enum WeekDays {
   MONDAY = 'Monday',
@@ -36,4 +36,10 @@ export enum WeekDays {
   FRIDAY = 'Friday',
   SATURDAY = 'Saturday',
   SUNDAY = 'Sunday'
+}
+
+export enum DateTypes {
+  DAILY_DATE = 'dailyDate',
+  DATE_FULL = 'dateFull',
+  WEEKLY_DATE = 'weeklyDate'
 }

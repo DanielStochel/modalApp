@@ -7,6 +7,7 @@ import {
   WeekDays,
   WeeklyDateValues,
 } from "../Model/dateValues.model";
+import uniqid from "uniqid";
 
 const useStyles = makeStyles(() => ({
   datePicker: {
@@ -41,8 +42,10 @@ export const DateWeeklyField = ({
 
   return (
     <FieldWrapper>
-      <Grid xs={3}>Every</Grid>
-      <Grid xs={9}>
+      <Grid item xs={3}>
+        Every
+      </Grid>
+      <Grid item xs={9}>
         <div className={classes.dateWrapper}>
           <Select
             value={(dateValues as WeeklyDateValues).weeklyDate}
@@ -53,7 +56,9 @@ export const DateWeeklyField = ({
             variant="outlined"
           >
             {Object.values(WeekDays).map((day) => (
-              <MenuItem value={day}>{day}</MenuItem>
+              <MenuItem key={uniqid()} value={day}>
+                {day}
+              </MenuItem>
             ))}
           </Select>
           <p className={classes.timeConnector}>at</p>

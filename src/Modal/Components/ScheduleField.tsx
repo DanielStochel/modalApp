@@ -8,8 +8,9 @@ import {
 import { FieldWrapper } from "./FieldWrapper";
 import { makeStyles } from "@material-ui/core/styles";
 import { scheduleOptions } from "../Model/scheduleOptions.model";
-import { FieldsMapper } from "../../Mapper/fieldsMapper.mapper";
+import { FieldsMapper } from "../Mapper/fieldsMapper.mapper";
 import { useMemo } from "react";
+import uniqid from "uniqid";
 
 const useStyles = makeStyles(() => ({
   formControlLabel: {
@@ -37,19 +38,22 @@ export const ScheduleField = ({ onChange, value }: ScheduleFieldProps) => {
     () =>
       FieldsMapper.radioFieldsMapper(scheduleOptions, (formatOption) => (
         <FormControlLabel
+          key={uniqid()}
           className={classes.formControlLabel}
           value={formatOption}
           control={<Radio size="small" className={classes.formRadio} />}
           label={<span className={classes.formRadioLabel}>{formatOption}</span>}
         />
       )),
-    []
+    [classes.formRadioLabel, classes.formRadio, classes.formControlLabel]
   );
 
   return (
     <FieldWrapper>
-      <Grid xs={3}>Schedule</Grid>
-      <Grid xs={9}>
+      <Grid item xs={3}>
+        Schedule
+      </Grid>
+      <Grid item xs={9}>
         <RadioGroup value={value} row onChange={onChange} name="schedule">
           {ScheduleFormControlLabels}
         </RadioGroup>

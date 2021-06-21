@@ -9,8 +9,10 @@ interface EmailFieldProps {
 export const EmailField = ({ ...props }: EmailFieldProps) => {
   return (
     <FieldWrapper>
-      <Grid xs={3}>Email to</Grid>
-      <Grid xs={9}>
+      <Grid item xs={3}>
+        Email to
+      </Grid>
+      <Grid item xs={9}>
         <TextField
           label="client@company.com"
           fullWidth
