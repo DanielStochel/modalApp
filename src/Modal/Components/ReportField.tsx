@@ -17,6 +17,7 @@ export const ReportField = ({ ...props }: ReportFieldProps) => {
           label="Shareablee Report"
           fullWidth
           name={fieldsAttributes.REPORT_NAME}
+          required
           {...props}
         />
       </Grid>

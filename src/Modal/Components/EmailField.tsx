@@ -16,6 +16,7 @@ export const EmailField = ({ ...props }: EmailFieldProps) => {
         <TextField
           label="client@company.com"
           fullWidth
+          required
           name={fieldsAttributes.EMAIL}
           {...props}
         />

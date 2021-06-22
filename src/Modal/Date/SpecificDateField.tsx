@@ -38,7 +38,7 @@ export const SpecificDateField = ({
 
   return (
     <FieldWrapper>
-      <Grid item xs={3}>
+      <Grid item xs={3} data-testid="date-field">
         Date
       </Grid>
       <Grid item xs={9}>
@@ -48,6 +48,7 @@ export const SpecificDateField = ({
             value={(dateValues as SpecificDateValues).dateFull}
             onChange={onChange}
             format="dd/MM/yyyy"
+            data-testid="specific-date-picker"
             className={classes.datePicker}
             size="small"
           />
@@ -58,6 +59,7 @@ export const SpecificDateField = ({
             inputVariant="outlined"
             todayLabel="now"
             ampm={false}
+            data-testid="specific-time-picker"
             value={(dateValues as SpecificDateValues).dailyDate}
             minutesStep={5}
             className={classes.datePicker}

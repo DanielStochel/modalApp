@@ -42,7 +42,7 @@ export const DateWeeklyField = ({
 
   return (
     <FieldWrapper>
-      <Grid item xs={3}>
+      <Grid item xs={3} data-testid="date-field">
         Every
       </Grid>
       <Grid item xs={9}>
@@ -50,6 +50,7 @@ export const DateWeeklyField = ({
           <Select
             value={(dateValues as WeeklyDateValues).weeklyDate}
             displayEmpty
+            data-testid="select-day"
             defaultValue={(dateValues as WeeklyDateValues).weeklyDate}
             className={classes.formControl}
             onChange={onSelectDay}
@@ -66,6 +67,7 @@ export const DateWeeklyField = ({
           <TimePicker
             showTodayButton
             inputVariant="outlined"
+            data-testid="weekly-time-picker"
             todayLabel="now"
             ampm={false}
             value={(dateValues as WeeklyDateValues).dailyDate}

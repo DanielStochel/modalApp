@@ -11,17 +11,14 @@ import {
   scheduleOptions,
   ScheduleOptionsHelpers,
 } from "../Modal/Model/scheduleOptions.model";
-import {
-  DateTypes,
-  DateValues,
-  FormValues,
-} from "../Modal/Model/dateValues.model";
+import { DateTypes, DateValues } from "../Modal/Model/dateValues.model";
 import { useBoolean } from "../hooks/useBoolean";
 import { OpenModal } from "../Modal/Components/OpenModal";
 import { useHandleChange } from "../hooks/useHandleChange";
 import { compose } from "recompose";
 import { withSnackbar } from "./withSnackbar";
 import { useSnackbar } from "notistack";
+import { FormValues } from "../Modal/Modal.state";
 
 const useStyles = makeStyles((theme) => ({
   modal: {

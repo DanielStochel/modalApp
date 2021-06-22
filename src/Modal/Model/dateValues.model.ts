@@ -1,6 +1,4 @@
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date"
-import { formatFields } from "./formatFields.model"
-import { scheduleOptions } from "./scheduleOptions.model"
 
 export type SpecificDateValues = {
   dateFull: MaterialUiPickersDate | string;
@@ -15,16 +13,6 @@ export type WeeklyDateValues = {
   dailyDate: MaterialUiPickersDate | string;
   weeklyDate: string;
 }
-
-export type FormValues = {
-    reportName: string;
-    email: string;
-    schedule: scheduleOptions;
-    format: formatFields;
-    dateFull: MaterialUiPickersDate | string;
-    dailyDate: MaterialUiPickersDate | string;
-    weeklyDate: string;
-};
   
 export type DateValues = SpecificDateValues | DailyDateValues | WeeklyDateValues | {}
 

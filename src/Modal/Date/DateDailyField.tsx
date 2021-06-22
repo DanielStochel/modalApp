@@ -31,13 +31,14 @@ export const DateDailyField = ({
 
   return (
     <FieldWrapper>
-      <Grid item xs={3}>
+      <Grid item xs={3} data-testid="date-field">
         Everyday at
       </Grid>
       <Grid item xs={9}>
         <TimePicker
           showTodayButton
           inputVariant="outlined"
+          data-testid="daily-time-picker"
           todayLabel="now"
           ampm={false}
           value={(dateValues as DailyDateValues).dailyDate}

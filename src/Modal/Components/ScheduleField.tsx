@@ -41,7 +41,7 @@ export const ScheduleField = ({ onChange, value }: ScheduleFieldProps) => {
           key={uniqid()}
           className={classes.formControlLabel}
           value={formatOption}
-          control={<Radio size="small" className={classes.formRadio} />}
+          control={<Radio size="small" className={classes.formRadio} data-testid={formatOption}/>}
           label={<span className={classes.formRadioLabel}>{formatOption}</span>}
         />
       )),

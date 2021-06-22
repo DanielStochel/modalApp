@@ -1,7 +1,6 @@
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { useState } from "react";
-import { initialformValuesState } from "../Modal/Modal.state";
-import { FormValues } from "../Modal/Model/dateValues.model";
+import { FormValues, initialformValuesState } from "../Modal/Modal.state";
 
 export const useHandleChange = () => {
   const [formValues, setFormValues] = useState<FormValues>(
