@@ -6,6 +6,9 @@ const useStyles = makeStyles(() => ({
     borderTop: "3px solid #ebeae6",
     marginTop: "50px",
   },
+  submitButton: {
+    backgroundColor: "#212121",
+  },
 }));
 
 interface ModalButtonsProps {
@@ -16,10 +19,15 @@ export const ModalButtons = ({ toggleModal }: ModalButtonsProps) => {
   const classes = useStyles();
   return (
     <DialogActions className={classes.dialogFooter}>
-      <Button onClick={toggleModal} color="primary">
+      <Button variant="outlined" color="default" onClick={toggleModal}>
         Cancel
       </Button>
-      <Button color="primary" type="submit">
+      <Button
+        className={classes.submitButton}
+        variant="contained"
+        color="primary"
+        type="submit"
+      >
         Ok
       </Button>
     </DialogActions>

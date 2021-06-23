@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { EmptyComponent } from "../Components/EmptyComponent";
 import { DateDailyField } from "../Date/DateDailyField";
 import { DateWeeklyField } from "../Date/DateWeeklyField";
 import { SpecificDateField } from "../Date/SpecificDateField";
@@ -14,7 +14,7 @@ export class ScheduleOptionsHelpers {
   static getDateField = (schedule: scheduleOptions) => {
     switch (schedule) {
       case scheduleOptions.NO_REPEAT:
-        return Fragment;
+        return EmptyComponent;
       case scheduleOptions.SPECIFIC_DATE:
         return SpecificDateField;
       case scheduleOptions.DAILY:
@@ -24,5 +24,3 @@ export class ScheduleOptionsHelpers {
     }
   };
 }  
-
-  
