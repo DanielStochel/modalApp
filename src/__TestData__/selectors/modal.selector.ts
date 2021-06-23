@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react";
-import { testData } from "../Data/modal.data";
+import { testData } from "../test-data/modal.data";
 
 export class ModalSelectors {
   getModalButton() {
